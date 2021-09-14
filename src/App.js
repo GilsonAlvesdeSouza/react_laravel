@@ -2,6 +2,7 @@ import {Provider} from 'react-redux';
 import {store} from './store/store';
 import {createTheme, ThemeProvider} from '@material-ui/core/styles';
 import Routes from './routes';
+import './css/dashBoard.css'
 
 const theme = createTheme({
     palette: {
