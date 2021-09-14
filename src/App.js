@@ -1,5 +1,8 @@
-import Button from '@material-ui/core/Button'
+import {Provider} from 'react-redux';
+import {store} from './store/store';
 import {createTheme, ThemeProvider} from '@material-ui/core/styles';
+import SideBar from "./components/SideBar";
+import Usuarios from "./components/Usuarios";
 
 const theme = createTheme({
     palette: {
@@ -11,13 +14,14 @@ const theme = createTheme({
 
 function App() {
     return (
-        <ThemeProvider theme={theme}>
-            <div className="App">
-                <Button variant={"contained"} color={"primary"}>
-                    Hello Word
-                </Button>
-            </div>
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <div className="App">
+                    <SideBar/>
+                    <Usuarios/>
+                </div>
+            </ThemeProvider>
+        </Provider>
     );
 }
 
