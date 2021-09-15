@@ -1,8 +1,12 @@
 import {combineReducers} from "redux";
-import usuariosReducer from "./usuariosReducer";
+import authReducer from "./authReducer";
+import loadingReducer from "./loadingReducer";
+import notifyReducer from "./notifyReducer";
 
 const rootReducer = combineReducers({
-    usuariosReducer
+    authReducer,
+    loadingReducer,
+    notifyReducer
 });
 
 export default rootReducer;

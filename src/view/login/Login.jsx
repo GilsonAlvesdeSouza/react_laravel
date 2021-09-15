@@ -7,6 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link'
 import {green} from '@material-ui/core/colors'
+import {login, changeValue} from "../../store/actions/authAction";
+import Loading from "../../components/loading/Loading"
+import Notify from "../../components/notify/Notify";
 
 const ColorButton = withStyles(theme => ({
     root: {
@@ -19,17 +22,32 @@ const ColorButton = withStyles(theme => ({
 }))(Button);
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        credentials: state.authReducer.credentials,
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        login: (credentials) => dispatch(login(credentials)),
+        changeValue: (value) => dispatch(changeValue(value)),
+    };
 }
 
 class Login extends Component {
+
+    login = () => {
+        const {credentials} = this.props;
+        this.props.login(credentials).then(()=>{
+            console.log("chamou");
+        });
+    }
+
     render() {
         return (
             <div>
+                <Loading/>
+                <Notify/>
                 <Container component={"main"} maxWidth={"xs"}>
                     <div className={"mt-3 mt-md-5"}>
                         <div className={"text-center"}>
@@ -41,12 +59,17 @@ class Login extends Component {
                         <div className="mt-4">
                             <TextField variant={"outlined"} margin={"normal"} required
                                        fullWidth id={"email"} name={"username"} type={"email"}
-                                       label={"E-mail"}/>
+                                       label={"E-mail"} value={this.props.credentials.username}
+                                       onChange={(text) =>
+                                           this.props.changeValue({username: text.target.value})}/>
                             <TextField variant={"outlined"} margin={"normal"} required
                                        fullWidth id={"Senha"} name={"senha"} type={"password"}
-                                       label={"Senha"}/>
+                                       label={"Senha"} value={this.props.credentials.password}
+                                       onChange={(text) =>
+                                           this.props.changeValue({password: text.target.value})}/>
                             <Button type={"button"} variant={"contained"} fullWidth color={"primary"}
-                                    size={"large"} className={"mb-3 mb-md-4 mt-4"}>Entrar
+                                    size={"large"} className={"mb-3 mb-md-4 mt-4"}
+                                    onClick={() => this.login()}>Entrar
                             </Button>
                             <Link href={"/register"} style={{textDecoration: "none"}}>
                                 <ColorButton type={"button"} fullWidth size={"large"}
