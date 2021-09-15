@@ -5,12 +5,15 @@ export const initialState = {
             username: '',
             password: '',
         },
-        isLoading: {
-            active: false,
-            msg: null,
+    },
+    register: {
+        data: {
+            username: '',
+            email: '',
+            password: '',
         },
-        success: false,
-        error: null,
+        error: {},
+        success: false
     },
     loading: {
         open: false,
