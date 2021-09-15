@@ -1,15 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withStyles} from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link'
+import {withStyles, Container, Button, TextField, Typography, Link} from '@material-ui/core';
 import {green} from '@material-ui/core/colors'
 import {login, changeValue} from "../../store/actions/authAction";
-import Loading from "../../components/loading/Loading"
-import Notify from "../../components/notify/Notify";
+import {Loading, Notify } from "../../components"
 
 const ColorButton = withStyles(theme => ({
     root: {

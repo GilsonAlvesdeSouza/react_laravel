@@ -2,14 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {registerUser, changeValue} from "../../store/actions/registerAction";
 import {rootUrl} from "../../config/globalConfig";
-
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link'
-import Loading from "../../components/loading/Loading"
-import Notify from "../../components/notify/Notify";
+import {Container, Button, TextField, Typography, Link} from '@material-ui/core';
+import {Loading, Notify } from "../../components"
 
 const mapStateToProps = (state) => {
     const {data, success, error} = state.registerReducer;
