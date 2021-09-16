@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {registerUser, changeValue} from "../../store/actions/registerAction";
-import {rootUrl} from "../../config/globalConfig";
+import {baseURL} from "../../config/globalConfig";
 import {Container, Button, TextField, Typography, Link} from '@material-ui/core';
-import {Loading, Notify } from "../../components"
+import {Loading, Notify} from "../../components"
 
 const mapStateToProps = (state) => {
     const {data, success, error} = state.registerReducer;
@@ -25,11 +25,24 @@ class Register extends Component {
 
     register = () => {
         this.props.registerUser(this.props.data)
-            .then(() =>{
-                if (this.props.success){
-                    window.location.replace(rootUrl+'painel');
+            .then(() => {
+                if (this.props.success) {
+                    window.location.replace(baseURL + 'painel');
                 }
             })
+    }
+
+    handleOnChange = (text, prop) => {
+        this.props.changeValue({[prop]: text.target.value})
+        if (this.props.error[prop]) {
+            console.log((this.props.error[prop]), "&&&&&&&&&&&&&&&");
+            delete this.props.error[prop];
+        }
+    }
+
+    handleError = (prop) => {
+        return (this.props.error[prop]) &&
+            <span className={"text-danger"}>{this.props.error[prop][0]}</span>;
     }
 
     render() {
@@ -46,23 +59,51 @@ class Register extends Component {
                             </Typography>
                         </div>
                         <div className="mt-4">
-                            <TextField variant={"outlined"} margin={"normal"} required
-                                       fullWidth id={"name"} name={"username"} type={"text"}
-                                       label={"Nome"} value={this.props.data.username}
+                            <TextField variant={"outlined"}
+                                       margin={"normal"}
+                                       required
+                                       fullWidth
+                                       id={"name"}
+                                       name={"name"}
+                                       type={"text"}
+                                       label={"Nome"}
+                                       value={this.props.data.name}
                                        onChange={(text) =>
-                                           this.props.changeValue({username: text.target.value})}/>
-                            <TextField variant={"outlined"} margin={"normal"} required
-                                       fullWidth id={"email"} name={"email"} type={"email"}
-                                       label={"E-mail"} value={this.props.data.email}
+                                           this.handleOnChange(text, 'name')
+                                       }/>
+                            {this.handleError('name')}
+                            <TextField variant={"outlined"}
+                                       margin={"normal"}
+                                       required
+                                       fullWidth
+                                       id={"email"}
+                                       name={"email"}
+                                       type={"email"}
+                                       label={"E-mail"}
+                                       value={this.props.data.email}
                                        onChange={(text) =>
-                                           this.props.changeValue({email: text.target.value})}/>
-                            <TextField variant={"outlined"} margin={"normal"} required
-                                       fullWidth id={"password"} name={"password"} type={"password"}
-                                       label={"Senha"} value={this.props.data.password}
+                                           this.handleOnChange(text, 'email')
+                                       }/>
+                            {this.handleError('email')}
+                            <TextField variant={"outlined"}
+                                       margin={"normal"}
+                                       required
+                                       fullWidth
+                                       id={"password"}
+                                       name={"password"}
+                                       type={"password"}
+                                       label={"Senha"}
+                                       value={this.props.data.password}
                                        onChange={(text) =>
-                                           this.props.changeValue({password: text.target.value})}/>
-                            <Button type={"button"} variant={"contained"} fullWidth color={"primary"}
-                                    size={"large"} className={"mb-3 mb-md-4 mt-4"}
+                                           this.handleOnChange(text, 'password')
+                                       }/>
+                            {this.handleError('password')}
+                            <Button type={"button"}
+                                    variant={"contained"}
+                                    fullWidth
+                                    color={"primary"}
+                                    size={"large"}
+                                    className={"mb-3 mb-md-4 mt-4"}
                                     onClick={() => this.register()}>Cadastrar
                             </Button>
                             <div className={"text-center"}>

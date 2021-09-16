@@ -8,7 +8,7 @@ export const initialState = {
     },
     register: {
         data: {
-            username: '',
+            name: '',
             email: '',
             password: '',
         },
